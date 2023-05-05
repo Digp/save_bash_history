@@ -1,0 +1,12 @@
+[Unit]
+Description=My Shutdown and Reboot Script
+After=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+ExecStart=/bin/true
+ExecStart=/bin/bash EXECUTION_PATH/save_history.sh
+
+[Install]
+WantedBy=multi-user.target
