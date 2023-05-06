@@ -1,5 +1,4 @@
 #!/bin/bash
-#!/bin/bash
 
 
 echo Start saving history!
@@ -19,7 +18,12 @@ function savehist {
     d=$(date "+%Y-%m-%d")
 
     ## Save history in appropriate directory
-    cat $home/.bash_history >> $CLIhist/$d.txt
+    if [ -f $CLIhist/$d.txt ]; then
+        cat $home/.bash_history >> $CLIhist/$d.txt
+    else
+        cp $home/.bash_history $CLIhist/$d.txt
+        sudo chown USER:USER $CLIhist/$d.txt
+    fi
     cat /dev/null > $home/.bash_history
     chmod 600 $CLIhist/$d.txt
 }
