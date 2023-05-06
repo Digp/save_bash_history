@@ -1,6 +1,7 @@
 #!/bin/bash
 
 EXECUTION_PATH='/usr/local/bin'
+USER=$(whoami)
 cd ~/
 HOME_PATH=$(pwd)
 cd -
@@ -10,6 +11,7 @@ if [ ! $(grep '\-save_history_installed$' ~/.bashrc | wc -l) -gt 0 ]; then
     ## Prepare service file
     sed -i.bak 's|EXECUTION_PATH|'"$EXECUTION_PATH"'|g' save_history.service
     sed -i.bak 's|HOME_PATH|'"$HOME_PATH"'|g' save_history.sh
+    sed -i 's|USER|'"$USER"'|g' save_history.sh
 
     ## Save execution script in selected path
     sudo cp save_history.sh $EXECUTION_PATH
@@ -47,4 +49,18 @@ if [ ! $(grep '\-save_history_installed$' ~/.bashrc | wc -l) -gt 0 ]; then
     #sudo systemctl stop save_history.service
     #sudo systemctl daemon-reload
     #sudo journalctl -u save_history.service
+
+
+    # Create a temporary file for the crontab
+    CRONTAB_FILE=$(mktemp)
+    
+    # Add the cron job to the file
+    echo "55 23 * * * /bin/bash "$EXECUTION_PATH"/save_history.sh" >> "$CRONTAB_FILE"
+    
+    # Install the crontab 
+    crontab $CRONTAB_FILE
+    
+    # Remove the temporary file
+    rm -f $CRONTAB_FILE
+
 fi
