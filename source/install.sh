@@ -9,15 +9,15 @@ cd -
 if [ ! $(grep '\-save_history_installed$' ~/.bashrc | wc -l) -gt 0 ]; then 
 
     ## Prepare service file
-    sed -i.bak 's|EXECUTION_PATH|'"$EXECUTION_PATH"'|g' save_history.service
-    sed -i.bak 's|HOME_PATH|'"$HOME_PATH"'|g' save_history.sh
-    sed -i 's|USER|'"$USER"'|g' save_history.sh
+    sed -i.bak 's|EXECUTION_PATH|'"$EXECUTION_PATH"'|g' build/save_history.service
+    sed -i.bak 's|HOME_PATH|'"$HOME_PATH"'|g' build/save_history.sh
+    sed -i 's|USER|'"$USER"'|g' build/save_history.sh
 
     ## Save execution script in selected path
-    sudo cp save_history.sh $EXECUTION_PATH
+    sudo cp build/save_history.sh $EXECUTION_PATH
 
     ## Save service file in /etc/systemd/system/
-    sudo cp save_history.service /etc/systemd/system/
+    sudo cp build/save_history.service /etc/systemd/system/
     
     ## Insert artificial line into .bash_history every time a terminal is initiated
     echo '' >> ~/.bashrc
@@ -55,7 +55,7 @@ if [ ! $(grep '\-save_history_installed$' ~/.bashrc | wc -l) -gt 0 ]; then
     CRONTAB_FILE=$(mktemp)
     
     # Add the cron job to the file
-    echo "55 23 * * * /bin/bash "$EXECUTION_PATH"/save_history.sh" >> "$CRONTAB_FILE"
+    echo "55 23 * * * /bin/bash "$EXECUTION_PATH"/save_history.sh # -save_history_installed" >> "$CRONTAB_FILE"
     
     # Install the crontab 
     crontab $CRONTAB_FILE
