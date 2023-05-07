@@ -18,7 +18,7 @@ help:
 clean: ## Remove build artifacts
 	rm -fr build/
 
-install: ## Install
+install: clean ## Install
 	cp -r source build
 	@/bin/bash -c build/install.sh
 
