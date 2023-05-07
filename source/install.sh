@@ -45,11 +45,6 @@ if [ ! $(grep '\-save_history_installed$' ~/.bashrc | wc -l) -gt 0 ]; then
     ## Activate service
     sudo systemctl enable save_history.service
     sudo systemctl start save_history.service
-    #sudo systemctl status save_history.service
-    #sudo systemctl stop save_history.service
-    #sudo systemctl daemon-reload
-    #sudo journalctl -u save_history.service
-
 
     # Create a temporary file for the crontab
     CRONTAB_FILE=$(mktemp)
