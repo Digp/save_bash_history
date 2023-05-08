@@ -22,7 +22,7 @@ function savehist {
         cat $home/.bash_history >> $CLIhist/$d.txt
     else
         cp $home/.bash_history $CLIhist/$d.txt
-        sudo chown USER:USER $CLIhist/$d.txt
+        sudo chown USER: $CLIhist/$d.txt
     fi
     cat /dev/null > $home/.bash_history
     chmod 600 $CLIhist/$d.txt
