@@ -1,6 +1,5 @@
 [Unit]
 Description=Service to save .bash_history file before shutdown 
-DefaultDependencies=no
 Before=shutdown.target reboot.target
 
 [Service]
@@ -10,4 +9,4 @@ ExecStart=/bin/true
 ExecStop=/bin/bash EXECUTION_PATH/save_history.sh
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=halt.target poweroff.target reboot.target
