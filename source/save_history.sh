@@ -5,12 +5,7 @@ echo Start saving history!
 
 ## Define directory to save history
 home=HOME_PATH
-CLIhist=$home/CLIhistory
-
-## If GoodPractices directory does not exist, create it
-if ! [ -d $CLIhist ]; then
-    mkdir $CLIhist
-fi
+CLIhist=SAVE_DIR
 
 ## Define function that saves the intended files
 function savehist {
