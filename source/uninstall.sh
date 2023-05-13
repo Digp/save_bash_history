@@ -5,11 +5,11 @@ EXECUTION_PATH='/usr/local/bin'
 ## Stop systemctl service
 sudo systemctl stop save_history.service
 sudo systemctl disable save_history.service
-sudo systemctl daemon-reload
 
 ## Remove files
 sudo rm -f /etc/systemd/system/save_history.service
 sudo rm -f $EXECUTION_PATH/save_history.sh
+sudo systemctl daemon-reload
 
 ## Revert .bashrc modifications
 sed -i '/\-save_history_installed$/d' ~/.bashrc
